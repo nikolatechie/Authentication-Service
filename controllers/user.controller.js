@@ -43,14 +43,18 @@ exports.login = (req, res) => {
         return;
     }
 
-    // check if the user exists in the database
-    // todo: we assumed there is
-    const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
-    res.json({ accessToken: accessToken });
-};
+    // check if the user exists in the database and generate a token
+    let token = null;
 
-exports.test = (req, res) => {
-    res.send(req.user);
+    axios
+        .post("http://localhost:8080/api/user/login", user)
+        .then(response => {
+            token = response.data.token;
+            res.send(token);
+        })
+        .catch(err => {
+            res.send({ message: "An error occurred!" });
+        });
 };
 
 exports.authenticateToken = (req, res, next) => {
