@@ -50,21 +50,11 @@ exports.login = (req, res) => {
         .post("http://localhost:8080/api/user/login", user)
         .then(response => {
             token = response.data.token;
-            res.send(token);
+            res.send({
+                token: token
+            });
         })
         .catch(err => {
             res.send({ message: "An error occurred!" });
         });
 };
-
-exports.authenticateToken = (req, res, next) => {
-    const authHeader = req.headers["authorization"];
-    const token = authHeader && authHeader.split(" ")[1];
-    if (token == null) return res.sendStatus(401);
-
-    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-        if (err) return res.sendStatus(403);
-        req.user = user;
-        next();
-    });
-}

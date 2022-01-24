@@ -11,6 +11,7 @@
   "license": "ISC",
   "devDependencies": {
     "axios": "^0.24.0",
+    "cors": "^2.8.5",
     "joi": "^17.5.0",
     "request": "^2.88.2"
   },
