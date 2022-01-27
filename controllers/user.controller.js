@@ -1,5 +1,4 @@
 var axios = require("axios");
-const jwt = require("jsonwebtoken");
 const Joi = require("joi");
 
 // Register a new User
